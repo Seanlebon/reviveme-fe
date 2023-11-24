@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
-
+import './LoginForm.css'
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -22,42 +22,38 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4">Login Form</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username:
-          </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            className="form-control"
-            required
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password:
-          </label>
-          <input
+    <div>
+      <form class="form-signin" onSubmit={handleSubmit}>
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Username"
+          value={formData.username}
+          onChange={handleChange}
+          className="form-control"
+          required autofocus
+        />
+        <input
             type="password"
             id="password"
             name="password"
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
             className="form-control"
             required
           />
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me" /> Remember me
+          </label>
         </div>
 
-        <button type="submit" className="btn btn-primary">
-          Login
-        </button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        <p class="mt-5 mb-0 text-muted">&copy; 2023-2023</p>
       </form>
     </div>
   );
