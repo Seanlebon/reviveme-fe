@@ -1,0 +1,27 @@
+.card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+    text-align: left;
+    width: 36rem;
+    border: 1px solid #ccc;
+    transition: border-color 0.2s ease;
+    overflow: hidden; /* Hide overflowing content */
+    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); /* Static gradient effect */
+}
+
+
+.card:hover {
+    border-color: #777;
+}
+
+.threadcard-author{
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* MyCardComponent.css */
+
+.card-container {
+    display: inline-block;
+}
