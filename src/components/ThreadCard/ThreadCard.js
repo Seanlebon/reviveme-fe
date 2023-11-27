@@ -9,12 +9,10 @@ const ThreadCard = (props) => {
     return  (
         <div classname='card-container'>
             <div className="card">
-                <Link to={`/threads/${thread.id}`} state={ {thread} } style={{textDecoration: 'none'}}>
-                    <div className="card-body my-0">
+                <Link to={`/threads/${thread.id}`} style={{textDecoration: 'none'}} className="card-body my-0">
                         <p className="threadcard-author my-0"> Posted by: {thread.author_name}</p>
                         <h5 className="card-title">{thread.title}</h5>
                         {/* On click this should bring us to the corresponding thread page with comments */}
-                    </div>
                 </Link>
             </div>
         </div>
