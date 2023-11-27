@@ -6,13 +6,13 @@ import axios from '../../apis/reviveme'
 import useAxios from '../../hooks/useAxios'
 
 const Home = () => {
-  const [thread, error, loading] = useAxios({
+  const [threads, error, loading] = useAxios({
     axiosInstance: axios,
     method: 'GET',
     url: '/api/v1/threads'
   })
 
-  console.log("HELLO", thread)
+  console.log("HELLO", threads)
   
   return (
     <div classname>
@@ -20,9 +20,9 @@ const Home = () => {
       {/* Use Link to navigate to the about page */}
       {loading && <p>Loading Threads...</p>}
       {!loading && error && <p>There was an error loading threads: {error}</p>}
-      {!loading && !error && thread &&
-        thread.map((item) => {
-          return <ThreadCard threadId={item.id} title={item.title} author={'seanlebon'}/>
+      {!loading && !error && threads &&
+        threads.map((thread) => {
+          return <ThreadCard thread={thread}/>
         })
       }
     

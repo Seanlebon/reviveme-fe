@@ -12,16 +12,20 @@ const App = () => {
   return (
     <Routes>
         <Route path = '/'>
-          <Route path='' index element={<Home />} />
+          <Route index element={<Home />} />
+          <Route path='/threads'/>
+          <Route path='/threads/:id' element = {<ThreadPage/>}/>
           <Route path='login' element={<Login/>} />
           <Route path='post' element = {<Post/>}/>
-          <Route path="test_thread_page" element={<ThreadPage />} />
+         
+            
           {/* Using path='*'' means 'match anything', so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
           <Route path='*' element={<NoMatch />} />
-
         </Route>
+
+
     </Routes>
   );
 };
