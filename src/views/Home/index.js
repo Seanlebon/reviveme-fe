@@ -9,7 +9,7 @@ const Home = () => {
   const [threads, error, loading] = useAxios({
     axiosInstance: axios,
     method: 'GET',
-    url: '/api/v1/threads'
+    url: '/api/v1/threads',
   })
 
   console.log("HELLO", threads)

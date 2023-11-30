@@ -10,6 +10,9 @@ const useAxios = (configObj) =>{
     const [response, setResponse] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
+    const [reload, setReload] = useState(0);
+    
+    const refetch = () => setReload(prev => prev + 1)
 
     useEffect(() => {
         const controller = new AbortController();
@@ -32,9 +35,11 @@ const useAxios = (configObj) =>{
         fetchData()
         // userEffect cleanup function
         return () => controller.abort()
-    },[])
+       
+    //eslint-disable-next-line
+    },[reload])
     
-    return [response, error, loading]
+    return [response, error, loading, refetch]
 }
 
 export default useAxios

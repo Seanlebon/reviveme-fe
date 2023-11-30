@@ -1,11 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import './CreateThread.css'
-import { useNavigate } from "react-router-dom";
+import useAxiosFunction from '../../hooks/useAxiosFunction'
+import axios from '../../apis/reviveme'
+import { useNavigate } from 'react-router-dom';
+
 
 const CreateThread = () => {
-    const navigate = useNavigate();
-    const [threadData, setThreadData] = useState({
+    const [data, error, loading, axiosFetch] = useAxiosFunction();
+    const navigate = useNavigate()
+    const [postData, setPostData] = useState({
         title: '',
         author:'',
         content:'',
@@ -13,19 +17,34 @@ const CreateThread = () => {
 
     const handleChange  = (event) => {
         const {name, value} = event.target
-        setThreadData({ ...threadData, [name]: value });
+        setPostData({ ...postData, [name]: value });
     };
 
     const handleSubmit = (event) =>{
         event.preventDefault()
         // TODO: Upon submition we should create a thread via our API and add to our db
-        setThreadData({
-            ...threadData,
+        axiosFetch({
+          axiosInstance: axios,
+          method: 'POST',
+          url: '/api/v1/threads',
+          requestConfig: {
+             //TODO: change hardcoded values once we get user API running
+            data: {
+              title: postData.title,
+              content: postData.content,
+              author_id: 1,
+            }
+          }
+        })
+        
+
+        setPostData({
+            ...postData,
             title:'',
             content:'',
         });
         // Not sure if this will need to be changed to redirect in the future
-        navigate('/');
+        navigate("/");
     };
 
     return (
@@ -36,7 +55,7 @@ const CreateThread = () => {
               id='title'
               name='title'
               placeholder='Title'
-              value={threadData.title}
+              value={postData.title}
               onChange={handleChange}
               className='form-control mt-2'
               required autofocus
@@ -47,13 +66,13 @@ const CreateThread = () => {
                 name='content'
                 rows='5'
                 placeholder='Text (required)'
-                value={threadData.content}
+                value={postData.content}
                 onChange={handleChange}
                 className='form-control my-2 thread-content'
                 maxLength='40000'
                 required
               />
-            <button class='btn btn-lg btn-primary' type='submit'>Create Post</button>
+              <button class='btn btn-lg btn-primary' type='submit'>Create Post</button>
           </form>
         </div>
       );
