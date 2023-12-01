@@ -22,7 +22,6 @@ const CreateThread = () => {
 
     const handleSubmit = (event) =>{
         event.preventDefault()
-        // TODO: Upon submition we should create a thread via our API and add to our db
         axiosFetch({
           axiosInstance: axios,
           method: 'POST',

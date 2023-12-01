@@ -17,7 +17,8 @@ const Home = () => {
   return (
     <div classname>
       <h2>Home Page</h2>
-      {/* Use Link to navigate to the about page */}
+      {/* TODO: create a loading animation instead */}
+      {/* TODO: direct to an error page */}
       {loading && <p>Loading Threads...</p>}
       {!loading && error && <p>There was an error loading threads: {error}</p>}
       {!loading && !error && threads &&
