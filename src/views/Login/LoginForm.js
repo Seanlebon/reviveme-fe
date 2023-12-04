@@ -22,8 +22,8 @@ const LoginForm = () => {
   };
 
   return (
-    <form class='form-signin' onSubmit={handleSubmit}>
-      <h1 class='h3 mb-3 font-weight-normal'>Please sign in</h1>
+    <form className='form-signin' onSubmit={handleSubmit}>
+      <h1 className='h3 mb-3 font-weight-normal'>Please sign in</h1>
       <input
         type='text'
         id='username'

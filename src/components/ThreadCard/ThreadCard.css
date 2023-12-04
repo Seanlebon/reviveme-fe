@@ -6,7 +6,10 @@
     width: 36rem;
     border: 1px solid #ccc;
     transition: border-color 0.2s ease;
+    cursor: pointer;
+    
 }
+
 
 .card:hover {
     border-color: #777;

@@ -20,7 +20,7 @@ const useAxios = (configObj) =>{
             try{
                 const res = await axiosInstance[method.toLowerCase()](url, {
                     ...requestConfig,
-                    signal: controller.singal
+                    signal: controller.signal
                 });
                 console.log(res);
                 setResponse(res.data);

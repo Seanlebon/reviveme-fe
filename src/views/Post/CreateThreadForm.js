@@ -1,19 +1,22 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
-import './CreateThread.css'
+import './CreateThreadForm.css'
 import useAxiosFunction from '../../hooks/useAxiosFunction'
 import axios from '../../apis/reviveme'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 
-const CreateThread = () => {
-    const [data, error, loading, axiosFetch] = useAxiosFunction();
-    const navigate = useNavigate()
+const CreateThreadForm = () => {
     const [postData, setPostData] = useState({
-        title: '',
-        author:'',
-        content:'',
+      title: '',
+      author:'',
+      content:'',
     });
+
+    const [response, error, loading, axiosFetch] = useAxiosFunction();
+
+
+    const navigate = useNavigate()
 
     const handleChange  = (event) => {
         const {name, value} = event.target
@@ -27,28 +30,27 @@ const CreateThread = () => {
           method: 'POST',
           url: '/api/v1/threads',
           requestConfig: {
-             //TODO: change hardcoded values once we get user API running
+              //TODO: change hardcoded values once we get user API running
             data: {
               title: postData.title,
               content: postData.content,
               author_id: 1,
             }
           }
-        })
-        
-
-        setPostData({
+        }).then(()=>{
+          navigate("/")
+          setPostData({
             ...postData,
             title:'',
             content:'',
+          });
         });
         // Not sure if this will need to be changed to redirect in the future
-        navigate("/");
     };
 
     return (
         <div className='container-md'>
-          <form class='form-create-thread' onSubmit={handleSubmit}>
+          <form className='form-create-thread' onSubmit={handleSubmit}>
             <input
               type='title'
               id='title'
@@ -71,10 +73,10 @@ const CreateThread = () => {
                 maxLength='40000'
                 required
               />
-              <button class='btn btn-lg btn-primary' type='submit'>Create Post</button>
+              <button className='btn btn-lg btn-primary' type='submit'>Create Post</button>
           </form>
         </div>
       );
 };
 
-export default CreateThread;
+export default CreateThreadForm;
