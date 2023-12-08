@@ -1,23 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link , useNavigate, useParams} from 'react-router-dom';
 import axios from '../../apis/reviveme'
 import useAxiosFunction from '../../hooks/useAxiosFunction'
 import DeleteThreadButton from '../../components/DeleteThreadButton/DeleteThreadButton'
+import EditThreadForm from './EditThreadForm';
 import './index.css'
 
 const ThreadPage = () =>{
     const {id} = useParams()
-    const [thread, error, loading, axiosFetch] = useAxiosFunction()
+    const [isEditing, setIsEditing] = useState(false)
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [thread, setThread] = useState({})
+    const [tempThreadContent, setTempThreadContent] = useState('')
     const threadURL = `/api/v1/threads/${id}`
 
     useEffect(() =>{
-        axiosFetch({
-            axiosInstance: axios,
-            method: 'GET',
-            url: threadURL
+        axios.get(`/api/v1/threads/${id}`)
+        .then(response => {
+            console.log("HELLOOOO3", response.data)
+            setThread(response.data)
+            setTempThreadContent(response.data.content);
+        })
+        .catch(error => {
+          // Handle error
+          console.error('Error fetching thread:', error);
+          setError(error)
+        })
+        .finally(()=>{
+            setLoading(false)
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const setIsEditingTrue = () => {
+        setIsEditing(true)
+    }
 
     return (
         <div>
@@ -26,8 +44,18 @@ const ThreadPage = () =>{
             {!loading && !error && thread &&
                 <div className='container'>
                     <h2>{thread.title}</h2>
-                    <p>{thread.content}</p>
-                    <DeleteThreadButton/>
+                    {
+                        isEditing ? 
+                            <EditThreadForm setIsEditing={setIsEditing} setTempThreadContent={setTempThreadContent} tempThreadContent={tempThreadContent} thread={thread}/> 
+                            : 
+                            <p>{tempThreadContent}</p>
+                    }
+                    <div className='row'>
+                        <div className='col'><DeleteThreadButton/></div>
+                        <div className='col'>
+                            <button className='btn btn-primary btn-sm' onClick={setIsEditingTrue}>Edit</button>
+                        </div>
+                    </div>
                     <Link to="/">Go to Home Page</Link>
                 </div>
             }
