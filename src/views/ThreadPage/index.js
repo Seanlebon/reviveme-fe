@@ -14,11 +14,11 @@ const ThreadPage = () =>{
     const [thread, setThread] = useState({})
     const [tempThreadContent, setTempThreadContent] = useState('')
     const threadURL = `/api/v1/threads/${id}`
-
+    // might need to have some more thought on the useAxiosFunction hook and how to pass in additional setter functions
+    // this works for now
     useEffect(() =>{
         axios.get(`/api/v1/threads/${id}`)
         .then(response => {
-            console.log("HELLOOOO3", response.data)
             setThread(response.data)
             setTempThreadContent(response.data.content);
         })

@@ -6,8 +6,7 @@ import {useNavigate} from 'react-router-dom';
 
 
 
-const EditThreadForm = (props) =>{
-    const {thread, setIsEditing, setTempThreadContent, tempThreadContent} = props
+const EditThreadForm = ({thread, setIsEditing, setTempThreadContent, tempThreadContent}) =>{
     const [response, error, loading, axiosFetch] = useAxiosFunction()
 
     const handleEditChange = (event)=>{

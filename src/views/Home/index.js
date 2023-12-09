@@ -19,8 +19,6 @@ const Home = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
-  console.log("HELLO", threads)
-  
   return (
     <div>
       {/* TODO: create a loading animation instead */}

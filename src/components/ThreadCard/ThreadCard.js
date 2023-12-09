@@ -3,9 +3,8 @@ import './ThreadCard.css'
 import React from 'react';
 import {Link, useNavigate} from "react-router-dom";
 
-const ThreadCard = (props) => {
+const ThreadCard = ({id, author_name, title}) => {
     // TODO: probably take in values from the api in the main page this is being called from 
-    const {id, author_name, title} = props.thread
     const navigate = useNavigate()
     const handleClick = () =>{
         navigate(`/threads/${id}`)
