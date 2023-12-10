@@ -7,8 +7,8 @@ const Login = () => {
     <div>
       <h2>Login Page</h2>
       {/* Use Link to navigate to the about page */}
-      <LoginForm/>
-      <Link to="/">Go to Home Page</Link>
+      <LoginForm />
+      <Link to='/'>Go to Home Page</Link>
     </div>
   );
 };

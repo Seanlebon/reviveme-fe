@@ -1,27 +1,25 @@
 .card {
-    margin: 0 auto; /* Added */
-    float: none; /* Added */
-    margin-bottom: 10px; /* Added */
-    text-align: left;
-    width: 36rem;
-    border: 1px solid #ccc;
-    transition: border-color 0.2s ease;
-    cursor: pointer;
-    
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+  text-align: left;
+  width: 36rem;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s ease;
+  cursor: pointer;
 }
-
 
 .card:hover {
-    border-color: #777;
+  border-color: #777;
 }
 
-.threadcard-author{
-    font-size: 0.8rem;
-    color: #888;
+.threadcard-author {
+  font-size: 0.8rem;
+  color: #888;
 }
 
 /* MyCardComponent.css */
 
 .card-container {
-    display: inline-block;
+  display: inline-block;
 }
