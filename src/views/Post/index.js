@@ -1,6 +1,6 @@
 import React from 'react';
-import CreateThreadForm from './CreateThreadForm';
 import { Link } from 'react-router-dom';
+import CreateThreadForm from './CreateThreadForm';
 const Post = () => {
   return (
     <div>

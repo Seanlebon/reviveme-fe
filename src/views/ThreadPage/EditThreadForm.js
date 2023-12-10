@@ -1,8 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState } from 'react';
-import useAxiosFunction from '../../hooks/useAxiosFunction';
+import React from 'react';
 import axios from '../../apis/reviveme';
-import { useNavigate } from 'react-router-dom';
+import useAxiosFunction from '../../hooks/useAxiosFunction';
 
 const EditThreadForm = ({
   thread,

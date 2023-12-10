@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
-import './CreateThreadForm.css';
-import useAxiosFunction from '../../hooks/useAxiosFunction';
-import axios from '../../apis/reviveme';
 import { useNavigate } from 'react-router-dom';
+import axios from '../../apis/reviveme';
+import useAxiosFunction from '../../hooks/useAxiosFunction';
+import './CreateThreadForm.css';
 
 const CreateThreadForm = () => {
   const [postData, setPostData] = useState({

@@ -1,21 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import ThreadCard from '../../components/ThreadCard/ThreadCard';
 import axios from '../../apis/reviveme';
-import useAxiosFunction from '../../hooks/useAxiosFunction';
-
+import ThreadCard from '../../components/ThreadCard/ThreadCard';
+import useAxios from '../../hooks/useAxios';
 const Home = () => {
-  const [threads, error, loading, axiosFetch] = useAxiosFunction();
-  useEffect(() => {
-    axiosFetch({
-      axiosInstance: axios,
-      method: 'GET',
-      url: '/api/v1/threads',
-    });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [threads, error, loading] = useAxios({
+    axiosInstance: axios,
+    method: 'GET',
+    url: '/api/v1/threads',
+  });
 
   return (
     <div>
@@ -29,7 +23,11 @@ const Home = () => {
           {threads.map((thread) => {
             return (
               <div>
-                <ThreadCard thread={thread} />
+                <ThreadCard
+                  id={thread.id}
+                  author_name={thread.author_name}
+                  title={thread.title}
+                />
               </div>
             );
           })}

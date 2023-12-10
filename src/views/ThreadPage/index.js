@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from '../../apis/reviveme';
-import useAxiosFunction from '../../hooks/useAxiosFunction';
 import DeleteThreadButton from '../../components/DeleteThreadButton/DeleteThreadButton';
 import EditThreadForm from './EditThreadForm';
 import './index.css';
@@ -13,7 +12,6 @@ const ThreadPage = () => {
   const [loading, setLoading] = useState(true);
   const [thread, setThread] = useState({});
   const [tempThreadContent, setTempThreadContent] = useState('');
-  const threadURL = `/api/v1/threads/${id}`;
   // might need to have some more thought on the useAxiosFunction hook and how to pass in additional setter functions
   // this works for now
   useEffect(() => {

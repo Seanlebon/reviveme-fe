@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from '../../apis/reviveme';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import './DeleteThreadButton.css';
@@ -9,13 +9,11 @@ const DeleteThreadButton = () => {
   const navigate = useNavigate();
   const [response, error, loading, axiosFetch] = useAxiosFunction();
 
-  const threadURL = `/api/v1/threads/${id}`;
-
   const handleDelete = () => {
     axiosFetch({
       axiosInstance: axios,
       method: 'DELETE',
-      url: threadURL,
+      url: `/api/v1/threads/${id}`,
     }).then(() => {
       navigate('/');
     });

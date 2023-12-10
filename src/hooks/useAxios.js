@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const useAxios = (configObj) => {
   const { axiosInstance, method, url, requestConfig = {} } = configObj;
@@ -17,10 +17,10 @@ const useAxios = (configObj) => {
           ...requestConfig,
           signal: controller.signal,
         });
-        console.log(res);
+        console.log('useAxios Response:', res);
         setResponse(res.data);
       } catch (err) {
-        console.log(err.message);
+        console.log('useAxios Error:', err.message);
         setError(err.message);
       } finally {
         setLoading(false);
