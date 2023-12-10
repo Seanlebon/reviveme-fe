@@ -2,33 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from '../../apis/reviveme';
 import DeleteThreadButton from '../../components/DeleteThreadButton/DeleteThreadButton';
+import useAxiosFunction from '../../hooks/useAxiosFunction';
 import EditThreadForm from './EditThreadForm';
 import './index.css';
 
 const ThreadPage = () => {
   const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [thread, setThread] = useState({});
-  const [tempThreadContent, setTempThreadContent] = useState('');
-  // might need to have some more thought on the useAxiosFunction hook and how to pass in additional setter functions
-  // this works for now
+  const [tempThread, setTempThread] = useState({});
+  const [thread, error, loading, axiosFetch] = useAxiosFunction();
   useEffect(() => {
-    axios
-      .get(`/api/v1/threads/${id}`)
-      .then((response) => {
-        setThread(response.data);
-        setTempThreadContent(response.data.content);
-      })
-      .catch((error) => {
-        // Handle error
-        console.error('Error fetching thread:', error);
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    axiosFetch({
+      axiosInstance: axios,
+      method: 'GET',
+      url: `/api/v1/threads/${id}`,
+      setterFunctions: [setTempThread],
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -48,12 +37,12 @@ const ThreadPage = () => {
           {isEditing ? (
             <EditThreadForm
               setIsEditing={setIsEditing}
-              setTempThreadContent={setTempThreadContent}
-              tempThreadContent={tempThreadContent}
+              setTempThread={setTempThread}
+              tempThread={tempThread}
               thread={thread}
             />
           ) : (
-            <p>{tempThreadContent}</p>
+            <p>{tempThread.content}</p>
           )}
           <div className='row'>
             <div className='col'>

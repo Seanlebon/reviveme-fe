@@ -7,7 +7,13 @@ const useAxiosFunction = () => {
   const [controller, setController] = useState();
 
   const axiosFetch = async (configObj) => {
-    const { axiosInstance, method, url, requestConfig = {} } = configObj;
+    const {
+      axiosInstance,
+      method,
+      url,
+      requestConfig = {},
+      setterFunctions = [],
+    } = configObj;
     setLoading(true);
     const ctrl = new AbortController();
     setController(ctrl);
@@ -19,6 +25,7 @@ const useAxiosFunction = () => {
       .then((res) => {
         console.log('useAxiosFunction Response:', res);
         setResponse(res.data);
+        setterFunctions?.forEach((func) => func(res.data));
       })
       .catch((err) => {
         console.log('useAxiosFunction Error:', err.message);

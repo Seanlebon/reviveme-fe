@@ -6,14 +6,14 @@ import useAxiosFunction from '../../hooks/useAxiosFunction';
 const EditThreadForm = ({
   thread,
   setIsEditing,
-  setTempThreadContent,
-  tempThreadContent,
+  setTempThread,
+  tempThread,
 }) => {
   const [response, error, loading, axiosFetch] = useAxiosFunction();
 
   const handleEditChange = (event) => {
-    const { value } = event.target;
-    setTempThreadContent(value);
+    const { name, value } = event.target;
+    setTempThread({ ...tempThread, [name]: value });
   };
 
   const handleEditSubmit = (event) => {
@@ -25,12 +25,12 @@ const EditThreadForm = ({
       requestConfig: {
         //TODO: change hardcoded values once we get user API running
         data: {
-          content: tempThreadContent,
+          content: tempThread.content,
         },
       },
     }).then(() => {
       setIsEditing(false);
-      setTempThreadContent(tempThreadContent);
+      setTempThread(tempThread);
     });
   };
 
@@ -42,7 +42,7 @@ const EditThreadForm = ({
         name='content'
         rows='5'
         placeholder='Text (required)'
-        value={tempThreadContent}
+        value={tempThread.content}
         onChange={handleEditChange}
         className='form-control my-2 thread-content'
         maxLength='40000'
