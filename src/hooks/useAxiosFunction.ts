@@ -1,19 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { AxiosError, AxiosResponse } from 'axios';
+type setterFunctionArray = Dispatch<SetStateAction<any>>[];
+
+interface Config {
+  axiosInstance: any;
+  method: string;
+  url: string;
+  requestConfig?: Record<string, any>;
+  setterFunctions?: setterFunctionArray;
+}
 
 const useAxiosFunction = () => {
-  const [response, setResponse] = useState([]);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [controller, setController] = useState();
+  const [response, setResponse] = useState<any[] | any>([]);
+  const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [controller, setController] = useState<AbortController>();
 
-  const axiosFetch = async (configObj) => {
+  const axiosFetch = async (config: Config) => {
     const {
       axiosInstance,
       method,
       url,
       requestConfig = {},
       setterFunctions = [],
-    } = configObj;
+    } = config;
     setLoading(true);
     const ctrl = new AbortController();
     setController(ctrl);
@@ -22,12 +32,12 @@ const useAxiosFunction = () => {
       ...requestConfig,
       signal: ctrl.signal,
     })
-      .then((res) => {
+      .then((res: AxiosResponse) => {
         console.log('useAxiosFunction Response:', res);
         setResponse(res.data);
         setterFunctions?.forEach((func) => func(res.data));
       })
-      .catch((err) => {
+      .catch((err: AxiosError) => {
         console.log('useAxiosFunction Error:', err.message);
         setError(err.message);
       })
@@ -41,7 +51,7 @@ const useAxiosFunction = () => {
     return () => controller && controller.abort();
   }, [controller]);
 
-  return [response, error, loading, axiosFetch];
+  return [response, error, loading, axiosFetch] as const;
 };
 
 export default useAxiosFunction;

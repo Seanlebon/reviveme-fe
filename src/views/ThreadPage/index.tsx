@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Thread from '../../types/CommonTypes';
 import axios from '../../apis/reviveme';
 import DeleteThreadButton from '../../components/DeleteThreadButton/DeleteThreadButton';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import EditThreadForm from './EditThreadForm';
 import './index.css';
 
-const ThreadPage = () => {
-  const { id } = useParams();
+const ThreadPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
   const [isEditing, setIsEditing] = useState(false);
-  const [tempThread, setTempThread] = useState({});
+  const [tempThread, setTempThread] = useState<Thread>({ content: '' });
   const [thread, error, loading, axiosFetch] = useAxiosFunction();
+
   useEffect(() => {
     axiosFetch({
       axiosInstance: axios,
@@ -19,7 +21,7 @@ const ThreadPage = () => {
       setterFunctions: [setTempThread],
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   const setIsEditingTrue = () => {
     setIsEditing(true);

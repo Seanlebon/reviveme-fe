@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import axios from '../../apis/reviveme';
+import React from 'react';
 import './EditThreadButton.css';
 
-const EditThreadButton = ({ isEditingCallback }) => {
+interface EditThreadButtonProps {
+  isEditingCallback: () => void;
+}
+
+const EditThreadButton: React.FC<EditThreadButtonProps> = ({
+  isEditingCallback,
+}) => {
   return (
     <div>
       <button className='btn btn-primary btn-sm' onClick={isEditingCallback}>

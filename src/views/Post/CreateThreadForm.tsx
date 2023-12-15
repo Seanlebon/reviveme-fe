@@ -1,12 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../apis/reviveme';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import './CreateThreadForm.css';
 
-const CreateThreadForm = () => {
-  const [postData, setPostData] = useState({
+interface PostData {
+  title: string;
+  author: string;
+  content: string;
+}
+
+const CreateThreadForm: React.FC = () => {
+  const [postData, setPostData] = useState<PostData>({
     title: '',
     author: '',
     content: '',
@@ -16,19 +22,21 @@ const CreateThreadForm = () => {
 
   const navigate = useNavigate();
 
-  const handleChange = (event) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = event.target;
     setPostData({ ...postData, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axiosFetch({
       axiosInstance: axios,
       method: 'POST',
       url: '/api/v1/threads',
       requestConfig: {
-        //TODO: change hardcoded values once we get user API running
+        // TODO: change hardcoded values once we get user API running
         data: {
           title: postData.title,
           content: postData.content,
@@ -58,18 +66,17 @@ const CreateThreadForm = () => {
           onChange={handleChange}
           className='form-control mt-2'
           required
-          autofocus
+          autoFocus
         />
         <textarea
-          type='content'
           id='content'
           name='content'
-          rows='5'
+          rows={5}
           placeholder='Text (required)'
           value={postData.content}
           onChange={handleChange}
           className='form-control my-2 thread-content'
-          maxLength='40000'
+          maxLength={40000}
           required
         />
         <button className='btn btn-lg btn-primary' type='submit'>
