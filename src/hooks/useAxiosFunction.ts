@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react';
-import { AxiosError, AxiosResponse, AxiosRequestConfig } from 'axios';
-import axios from '../apis/reviveme';
+import {
+  AxiosError,
+  AxiosResponse,
+  AxiosRequestConfig,
+  AxiosInstance,
+} from 'axios';
+import defaultAxiosInstance from '../apis/reviveme';
 
-const useAxiosFunction = () => {
+const useAxiosFunction = (
+  axiosInstance: AxiosInstance = defaultAxiosInstance,
+) => {
   const [response, setResponse] = useState<any[] | any>([]);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
@@ -16,7 +23,7 @@ const useAxiosFunction = () => {
     const ctrl = new AbortController();
     setController(ctrl);
 
-    await axios
+    await axiosInstance
       .request(config)
       .then((res: AxiosResponse) => {
         console.log('useAxiosFunction Response:', res);
