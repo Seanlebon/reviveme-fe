@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Thread from '../../types/CommonTypes';
-import axios from '../../apis/reviveme';
 import DeleteThreadButton from '../../components/DeleteThreadButton/DeleteThreadButton';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import EditThreadForm from './EditThreadForm';
@@ -14,12 +13,13 @@ const ThreadPage: React.FC = () => {
   const [thread, error, loading, axiosFetch] = useAxiosFunction();
 
   useEffect(() => {
-    axiosFetch({
-      axiosInstance: axios,
-      method: 'GET',
-      url: `/api/v1/threads/${id}`,
-      setterFunctions: [setTempThread],
-    });
+    axiosFetch(
+      {
+        method: 'GET',
+        url: `/api/v1/threads/${id}`,
+      },
+      [setTempThread],
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 

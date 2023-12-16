@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import './DeleteThreadButton.css';
 
@@ -13,7 +12,6 @@ const DeleteThreadButton: React.FC = () => {
 
   const handleDelete = () => {
     axiosFetch({
-      axiosInstance: axios,
       method: 'DELETE',
       url: `/api/v1/threads/${id}`,
     }).then(() => {

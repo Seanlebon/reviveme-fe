@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { ChangeEvent, FormEvent } from 'react';
-import axios from '../../apis/reviveme';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import Thread from '../../types/CommonTypes';
 
@@ -28,14 +27,11 @@ const EditThreadForm: React.FC<EditThreadFormProps> = ({
   const handleEditSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axiosFetch({
-      axiosInstance: axios,
       method: 'PUT',
       url: `/api/v1/threads/${thread.id}`,
-      requestConfig: {
-        // TODO: change hardcoded values once we get user API running
-        data: {
-          content: tempThread.content,
-        },
+      // TODO: change hardcoded values once we get user API running
+      data: {
+        content: tempThread.content,
       },
     }).then(() => {
       setIsEditing(false);
