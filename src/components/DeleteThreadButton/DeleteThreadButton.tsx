@@ -1,12 +1,14 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from '../../apis/reviveme';
+import axios from 'axios';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import './DeleteThreadButton.css';
 
-const DeleteThreadButton = () => {
-  const { id } = useParams();
+const DeleteThreadButton: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [response, error, loading, axiosFetch] = useAxiosFunction();
 
   const handleDelete = () => {
