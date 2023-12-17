@@ -6,12 +6,21 @@ import useAxiosFunction from '../../hooks/useAxiosFunction';
 import EditThreadForm from './EditThreadForm';
 import './index.css';
 import CommentList from './Comment/CommentList';
+import CreateCommentForm from './Comment/CreateCommentForm';
+import useAxios from '../../hooks/useAxios';
+import axios from '../../apis/reviveme';
 
 const ThreadPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [isEditing, setIsEditing] = useState(false);
   const [tempThread, setTempThread] = useState<Thread>({ content: '' });
   const [thread, error, loading, axiosFetch] = useAxiosFunction();
+
+  const [comments, commentError, commentLoading, refetchComments] = useAxios({
+    axiosInstance: axios,
+    method: 'GET',
+    url: `/api/v1/threads/${id}/comments`,
+  });
 
   useEffect(() => {
     axiosFetch(
@@ -64,8 +73,12 @@ const ThreadPage: React.FC = () => {
             </div>
           )}
 
-          {/* TODO: create comment box */}
-          <CommentList />
+          <CreateCommentForm refetchComments={refetchComments} />
+          {commentLoading && <p>Loading Comments...</p>}
+          {!commentLoading && commentError && (
+            <p>There was an error loading comments: {commentError}</p>
+          )}
+          {comments && <CommentList comments={comments} />}
           <Link to='/'>Go to Home Page</Link>
         </div>
       )}
