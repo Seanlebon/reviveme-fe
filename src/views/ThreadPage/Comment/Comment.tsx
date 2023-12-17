@@ -56,18 +56,23 @@ const Comment: React.FC<CommentProps> = ({ comment, refetchComments }) => {
         />
       )}
       <div className='comment-footer'>
-        <button
-          className='btn comment-footer-button-text'
-          onClick={handleDeleteButtonPress}
-        >
-          delete
-        </button>
-        <button
-          className='btn comment-footer-button-text'
-          onClick={handleEditButtonPress}
-        >
-          edit
-        </button>
+        {!comment.deleted && (
+          <React.Fragment>
+            <button
+              className='btn comment-footer-button-text'
+              onClick={handleDeleteButtonPress}
+            >
+              delete
+            </button>
+            <button
+              className='btn comment-footer-button-text'
+              onClick={handleEditButtonPress}
+            >
+              edit
+            </button>
+          </React.Fragment>
+        )}
+
         <button
           className='btn comment-footer-button-text'
           onClick={handleReplyButtonPress}
