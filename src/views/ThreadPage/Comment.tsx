@@ -9,7 +9,7 @@ interface CommentProps {
 const Comment: React.FC<CommentProps> = ({ comment }: CommentProps) => {
   return (
     <div className='comment-card'>
-      <p>{comment.author_username}</p>
+      <p className='author-username'>{comment.author_username}</p>
       <p>{comment.content}</p>
       <div>
         {comment.children.map((child: CommentType) => (

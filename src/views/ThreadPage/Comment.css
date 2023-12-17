@@ -7,3 +7,8 @@
   box-shadow: 0 0 5px #ccc;
   text-align: left;
 }
+
+.author-username {
+  font-size: 0.8rem;
+  color: #888;
+}
