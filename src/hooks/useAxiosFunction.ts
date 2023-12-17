@@ -5,11 +5,33 @@ import {
   AxiosRequestConfig,
   AxiosInstance,
 } from 'axios';
-import defaultAxiosInstance from '../apis/reviveme';
+import apiAxiosInstance from '../apis/reviveme';
 
-const useAxiosFunction = (
-  axiosInstance: AxiosInstance = defaultAxiosInstance,
-) => {
+/* 
+  useAxiosFunction takes an axios instance as an optional argument, and returns 4 items in an array: [response, error, loading, axiosFetch].
+    response: the response data from the axios request (populated after the request successfully resolves)
+    error: the error message from the axios request (populated if the request rejects)
+    loading: a boolean indicating whether the request is still pending
+    axiosFetch: takes two arguments: 
+      - config: an axios request config object (see https://axios-http.com/docs/req_config)
+      - setterFunctions: an array of setter functions to be called after the request resolves
+      examples: 
+      
+      axiosFetch({
+        method: 'GET',
+        url: '/api/v1/threads',
+      }, [setResponse, setOtherStateVariable])
+
+      axiosFetch({
+        method: 'POST',
+        url: '/api/v1/threads',
+        data: {
+          name: 'John Doe',
+          email: '
+        }
+      }, [setResponse, setOtherStateVariable])
+*/
+const useAxiosFunction = (axiosInstance: AxiosInstance = apiAxiosInstance) => {
   const [response, setResponse] = useState<any[] | any>([]);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
