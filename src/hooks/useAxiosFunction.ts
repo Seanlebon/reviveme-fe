@@ -1,44 +1,37 @@
-import { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { AxiosError, AxiosResponse } from 'axios';
-type setterFunctionArray = Dispatch<SetStateAction<any>>[];
+import { useEffect, useState } from 'react';
+import {
+  AxiosError,
+  AxiosResponse,
+  AxiosRequestConfig,
+  AxiosInstance,
+} from 'axios';
+import defaultAxiosInstance from '../apis/reviveme';
 
-interface Config {
-  axiosInstance: any;
-  method: string;
-  url: string;
-  requestConfig?: Record<string, any>;
-  setterFunctions?: setterFunctionArray;
-}
-
-const useAxiosFunction = () => {
+const useAxiosFunction = (
+  axiosInstance: AxiosInstance = defaultAxiosInstance,
+) => {
   const [response, setResponse] = useState<any[] | any>([]);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [controller, setController] = useState<AbortController>();
 
-  const axiosFetch = async (config: Config) => {
-    const {
-      axiosInstance,
-      method,
-      url,
-      requestConfig = {},
-      setterFunctions = [],
-    } = config;
+  const axiosFetch = async (
+    config: AxiosRequestConfig,
+    setterFunctions: Array<(data: any) => void> = [],
+  ) => {
     setLoading(true);
     const ctrl = new AbortController();
     setController(ctrl);
 
-    await axiosInstance[method.toLowerCase()](url, {
-      ...requestConfig,
-      signal: ctrl.signal,
-    })
+    await axiosInstance
+      .request(config)
       .then((res: AxiosResponse) => {
         console.log('useAxiosFunction Response:', res);
         setResponse(res.data);
         setterFunctions?.forEach((func) => func(res.data));
       })
       .catch((err: AxiosError) => {
-        console.log('useAxiosFunction Error:', err.message);
+        console.log('useAxiosFunction Error:', err.message, err.response?.data);
         setError(err.message);
       })
       .finally(() => {
