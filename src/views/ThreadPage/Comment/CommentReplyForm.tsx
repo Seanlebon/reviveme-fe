@@ -48,7 +48,7 @@ const CommentReplyForm: React.FC<CommentReplyFormProps> = ({
   };
 
   return (
-    <div className='comment-form'>
+    <form className='comment-form' onSubmit={handleReplySubmit}>
       <textarea
         placeholder='Reply to this comment'
         onChange={handleReplyChange}
@@ -61,14 +61,11 @@ const CommentReplyForm: React.FC<CommentReplyFormProps> = ({
         >
           Cancel
         </button>
-        <button
-          className='btn btn-sm btn-primary form-button'
-          onClick={handleReplySubmit}
-        >
+        <button type='submit' className='btn btn-sm btn-primary form-button'>
           Reply
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

@@ -1,6 +1,7 @@
 .comment-card {
   margin: 5px;
   padding: 5px;
+  padding-left: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
