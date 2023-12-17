@@ -27,7 +27,7 @@ import apiAxiosInstance from '../apis/reviveme';
         url: '/api/v1/threads',
         data: {
           name: 'John Doe',
-          email: '
+          email: 'imjohn@gmail.com'
         }
       }, [setResponse, setOtherStateVariable])
 */

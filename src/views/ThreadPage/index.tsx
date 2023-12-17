@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Thread from '../../types/CommonTypes';
+import { Thread } from '../../types/CommonTypes';
 import DeleteThreadButton from '../../components/DeleteThreadButton/DeleteThreadButton';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import EditThreadForm from './EditThreadForm';
 import './index.css';
+import CommentList from './CommentList';
 
 const ThreadPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -63,6 +64,7 @@ const ThreadPage: React.FC = () => {
             </div>
           )}
 
+          <CommentList />
           <Link to='/'>Go to Home Page</Link>
         </div>
       )}

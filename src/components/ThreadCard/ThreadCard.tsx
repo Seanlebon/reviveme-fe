@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ThreadCard.css';
-import Thread from '../../types/CommonTypes';
+import { Thread } from '../../types/CommonTypes';
 
 interface ThreadCardProps {
   thread: Thread;

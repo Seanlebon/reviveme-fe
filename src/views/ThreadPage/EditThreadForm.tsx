@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { ChangeEvent, FormEvent } from 'react';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
-import Thread from '../../types/CommonTypes';
+import { Thread } from '../../types/CommonTypes';
 
 interface EditThreadFormProps {
   thread: Thread;
