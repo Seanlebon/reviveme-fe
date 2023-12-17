@@ -35,7 +35,7 @@ const ThreadPage: React.FC = () => {
       )}
       {!loading && !error && thread && (
         <div className='container'>
-          <h2>{thread.title}</h2>
+          <h2>{thread.deleted ? '[deleted]' : thread.title}</h2>
           {isEditing ? (
             <EditThreadForm
               setIsEditing={setIsEditing}
@@ -44,21 +44,25 @@ const ThreadPage: React.FC = () => {
               thread={thread}
             />
           ) : (
-            <p>{tempThread.content}</p>
+            <p>{thread.deleted ? '[deleted]' : tempThread.content}</p>
           )}
-          <div className='row'>
-            <div className='col'>
-              <DeleteThreadButton />
+
+          {!thread.deleted && (
+            <div className='row'>
+              <div className='col'>
+                <DeleteThreadButton />
+              </div>
+              <div className='col'>
+                <button
+                  className='btn btn-primary btn-sm'
+                  onClick={setIsEditingTrue}
+                >
+                  Edit
+                </button>
+              </div>
             </div>
-            <div className='col'>
-              <button
-                className='btn btn-primary btn-sm'
-                onClick={setIsEditingTrue}
-              >
-                Edit
-              </button>
-            </div>
-          </div>
+          )}
+
           <Link to='/'>Go to Home Page</Link>
         </div>
       )}
