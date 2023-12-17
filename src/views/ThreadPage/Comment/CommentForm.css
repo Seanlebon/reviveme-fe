@@ -1,4 +1,4 @@
-.form-container {
+.comment-form {
   display: flex;
   flex-direction: column;
 }
@@ -16,4 +16,8 @@
 
 .form-button {
   margin-left: 1%;
+}
+
+.form-create-comment {
+  margin-top: 20px;
 }

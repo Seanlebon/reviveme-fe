@@ -43,11 +43,12 @@ const EditCommentForm: React.FC<EditCommentFormProps> = ({
   };
 
   return (
-    <div className='form-container'>
+    <form className='comment-form'>
       <textarea
         onChange={handleEditChange}
         value={editedContent}
-        className='form-text-input'
+        className='form-control my-2 form-text-input'
+        required
       />
       <div className='form-footer'>
         <button
@@ -63,7 +64,7 @@ const EditCommentForm: React.FC<EditCommentFormProps> = ({
           Save
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

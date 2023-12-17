@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxiosFunction from '../../../hooks/useAxiosFunction';
-import './CreateCommentForm.css';
+import './CommentForm.css';
 
 interface CommentData {
   author_id: number;
@@ -47,26 +47,24 @@ const CreateCommentForm: React.FC<CommentFormProps> = ({ refetchComments }) => {
   };
 
   return (
-    <div>
-      <form className='form-create-comment' onSubmit={handleSubmit}>
-        <textarea
-          id='content'
-          name='content'
-          rows={5}
-          placeholder='Write a comment...'
-          value={commentData.content}
-          onChange={handleChange}
-          className='form-control my-2 thread-content'
-          maxLength={40000}
-          required
-        />
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <button className='btn btn-primary' type='submit'>
-            Create Comment
-          </button>
-        </div>
-      </form>
-    </div>
+    <form className='comment-form' onSubmit={handleSubmit}>
+      <textarea
+        id='content'
+        name='content'
+        rows={5}
+        placeholder='Write a comment...'
+        value={commentData.content}
+        onChange={handleChange}
+        className='form-control my-2'
+        maxLength={40000}
+        required
+      />
+      <div className='form-footer'>
+        <button className='btn btn-primary' type='submit'>
+          Create Comment
+        </button>
+      </div>
+    </form>
   );
 };
 

@@ -48,11 +48,11 @@ const CommentReplyForm: React.FC<CommentReplyFormProps> = ({
   };
 
   return (
-    <div className='form-container'>
+    <div className='comment-form'>
       <textarea
         placeholder='Reply to this comment'
         onChange={handleReplyChange}
-        className='form-text-input'
+        className='form-control my-2 form-text-input'
       />
       <div className='form-footer'>
         <button
