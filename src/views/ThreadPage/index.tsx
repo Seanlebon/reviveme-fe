@@ -78,7 +78,12 @@ const ThreadPage: React.FC = () => {
           {!commentLoading && commentError && (
             <p>There was an error loading comments: {commentError}</p>
           )}
-          {comments && <CommentList comments={comments} />}
+          {comments && (
+            <CommentList
+              comments={comments}
+              refetchComments={refetchComments}
+            />
+          )}
           <Link to='/'>Go to Home Page</Link>
         </div>
       )}
