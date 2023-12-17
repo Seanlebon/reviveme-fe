@@ -5,7 +5,7 @@ import DeleteThreadButton from '../../components/DeleteThreadButton/DeleteThread
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import EditThreadForm from './EditThreadForm';
 import './index.css';
-import CommentList from './CommentList';
+import CommentList from './Comment/CommentList';
 
 const ThreadPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -64,6 +64,7 @@ const ThreadPage: React.FC = () => {
             </div>
           )}
 
+          {/* TODO: create comment box */}
           <CommentList />
           <Link to='/'>Go to Home Page</Link>
         </div>

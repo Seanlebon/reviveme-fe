@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Comment from './Comment';
-import { Comment as CommentType } from '../../types/CommonTypes';
-import useAxiosFunction from '../../hooks/useAxiosFunction';
+import { Comment as CommentType } from '../../../types/CommonTypes';
+import useAxiosFunction from '../../../hooks/useAxiosFunction';
 import { useParams } from 'react-router-dom';
 import './CommentList.css';
 

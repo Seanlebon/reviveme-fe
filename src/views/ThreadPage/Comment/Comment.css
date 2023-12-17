@@ -12,3 +12,17 @@
   font-size: 0.8rem;
   color: #888;
 }
+
+.comment-footer {
+  align-content: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.comment-footer-button-text {
+  font-size: 0.8rem;
+  color: #888;
+  margin-right: 10px;
+}
