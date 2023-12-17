@@ -1,0 +1,19 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-text-input {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.form-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.form-button {
+  margin-left: 1%;
+}

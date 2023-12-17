@@ -2,74 +2,69 @@ import React, { ChangeEvent, useState } from 'react';
 import { Comment as CommentType } from '../../../types/CommonTypes';
 import axios from '../../../apis/reviveme';
 import { AxiosError } from 'axios';
-import { useParams } from 'react-router-dom';
 
 import './CommentForm.css';
 
-interface CommentReplyFormProps {
-  parentComment: CommentType;
+interface EditCommentFormProps {
+  comment: CommentType;
   refetchComments: () => void;
-  setShowReplyEditor: (show: boolean) => void;
+  setShowEditForm: (show: boolean) => void;
 }
 
-const CommentReplyForm: React.FC<CommentReplyFormProps> = ({
-  parentComment,
+const EditCommentForm: React.FC<EditCommentFormProps> = ({
+  comment,
   refetchComments,
-  setShowReplyEditor,
+  setShowEditForm,
 }) => {
-  const { id } = useParams<{ id: string }>(); // Thread id
+  const [editedContent, setEditedContent] = useState(comment.content);
 
-  const [replyContent, setReplyContent] = useState('');
-
-  const handleReplyChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleEditChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target;
-    setReplyContent(value);
+    setEditedContent(value);
   };
 
-  const handleReplySubmit = () => {
+  const handleEditSubmit = () => {
     axios
-      .post(`/api/v1/threads/${id}/comments`, {
+      .put(`/api/v1/comments/${comment.id}`, {
         author_id: 1, // TODO: change hardcoded value once we get user API running
-        content: replyContent,
-        parent_id: parentComment.id,
+        content: editedContent,
       })
       .then(() => {
+        setShowEditForm(false);
         refetchComments();
-        setShowReplyEditor(false);
-        setReplyContent('');
       })
       .catch((err: AxiosError) => {
         console.log('Error posting comment', err);
       });
   };
 
-  const handleReplyCancel = () => {
-    setShowReplyEditor(false);
+  const handleEditCancel = () => {
+    setShowEditForm(false);
   };
 
   return (
     <div className='form-container'>
       <textarea
-        placeholder='Reply to this comment'
-        onChange={handleReplyChange}
+        onChange={handleEditChange}
+        value={editedContent}
         className='form-text-input'
       />
       <div className='form-footer'>
         <button
           className='btn btn-sm btn-secondary form-button'
-          onClick={handleReplyCancel}
+          onClick={handleEditCancel}
         >
           Cancel
         </button>
         <button
           className='btn btn-sm btn-primary form-button'
-          onClick={handleReplySubmit}
+          onClick={handleEditSubmit}
         >
-          Reply
+          Save
         </button>
       </div>
     </div>
   );
 };
 
-export default CommentReplyForm;
+export default EditCommentForm;

@@ -4,6 +4,7 @@ import axios from '../../../apis/reviveme';
 import './Comment.css';
 import { AxiosError } from 'axios';
 import CommentReplyForm from './CommentReplyForm';
+import EditCommentForm from './EditCommentForm';
 
 interface CommentProps {
   comment: CommentType;
@@ -11,7 +12,8 @@ interface CommentProps {
 }
 
 const Comment: React.FC<CommentProps> = ({ comment, refetchComments }) => {
-  const [showReplyEditor, setShowReplyEditor] = useState(false);
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const handleDeleteButtonPress = () => {
     axios
@@ -22,8 +24,12 @@ const Comment: React.FC<CommentProps> = ({ comment, refetchComments }) => {
       });
   };
 
+  const handleEditButtonPress = () => {
+    setShowEditForm(true);
+  };
+
   const handleReplyButtonPress = () => {
-    setShowReplyEditor(true);
+    setShowReplyForm(true);
   };
 
   return (
@@ -31,12 +37,22 @@ const Comment: React.FC<CommentProps> = ({ comment, refetchComments }) => {
       <p className='author-username'>
         {comment.deleted ? '[deleted]' : comment.author_username}
       </p>
-      {comment.deleted ? '[deleted]' : comment.content}
-      {showReplyEditor && (
+      {showEditForm ? (
+        <EditCommentForm
+          comment={comment}
+          refetchComments={refetchComments}
+          setShowEditForm={setShowEditForm}
+        />
+      ) : comment.deleted ? (
+        '[deleted]'
+      ) : (
+        comment.content
+      )}
+      {showReplyForm && (
         <CommentReplyForm
           parentComment={comment}
           refetchComments={refetchComments}
-          setShowReplyEditor={setShowReplyEditor}
+          setShowReplyEditor={setShowReplyForm}
         />
       )}
       <div className='comment-footer'>
@@ -45,6 +61,12 @@ const Comment: React.FC<CommentProps> = ({ comment, refetchComments }) => {
           onClick={handleDeleteButtonPress}
         >
           delete
+        </button>
+        <button
+          className='btn comment-footer-button-text'
+          onClick={handleEditButtonPress}
+        >
+          edit
         </button>
         <button
           className='btn comment-footer-button-text'
