@@ -11,6 +11,8 @@
 .author-username {
   font-size: 0.8rem;
   color: #888;
+  margin-top: 0em;
+  margin-bottom: 0.2em;
 }
 
 .comment-footer {
@@ -24,5 +26,6 @@
 .comment-footer-button-text {
   font-size: 0.8rem;
   color: #888;
-  margin-right: 10px;
+  margin-right: 1%;
+  padding: 0;
 }

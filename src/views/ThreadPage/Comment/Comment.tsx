@@ -3,7 +3,7 @@ import { Comment as CommentType } from '../../../types/CommonTypes';
 import axios from '../../../apis/reviveme';
 import './Comment.css';
 import { AxiosError } from 'axios';
-import { useParams } from 'react-router-dom';
+import CommentReplyForm from './CommentReplyForm';
 
 interface CommentProps {
   comment: CommentType;
@@ -11,7 +11,6 @@ interface CommentProps {
 }
 
 const Comment: React.FC<CommentProps> = ({ comment, refetchComments }) => {
-  const { id } = useParams<{ id: string }>(); // Thread id
   const [showReplyEditor, setShowReplyEditor] = useState(false);
 
   const handleDeleteButtonPress = () => {
@@ -27,43 +26,18 @@ const Comment: React.FC<CommentProps> = ({ comment, refetchComments }) => {
     setShowReplyEditor(true);
   };
 
-  const handleReplyCancel = () => {
-    setShowReplyEditor(false);
-  };
-
-  const handleReplySubmit = () => {
-    axios.post(`/api/v1/thread/${id}/comments`, {});
-  };
-
   return (
     <div className='comment-card'>
       <p className='author-username'>
         {comment.deleted ? '[deleted]' : comment.author_username}
       </p>
-      <p>{comment.deleted ? '[deleted]' : comment.content}</p>
+      {comment.deleted ? '[deleted]' : comment.content}
       {showReplyEditor && (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <textarea placeholder='Reply to this comment' />
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-            }}
-          >
-            <button
-              className='btn btn-sm btn-secondary'
-              onClick={handleReplyCancel}
-            >
-              Cancel
-            </button>
-            <button
-              className='btn btn-sm btn-primary'
-              onClick={handleReplySubmit}
-            >
-              Reply
-            </button>
-          </div>
-        </div>
+        <CommentReplyForm
+          parentComment={comment}
+          refetchComments={refetchComments}
+          setShowReplyEditor={setShowReplyEditor}
+        />
       )}
       <div className='comment-footer'>
         <button
