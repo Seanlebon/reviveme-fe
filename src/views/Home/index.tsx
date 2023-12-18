@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../../apis/reviveme';
-import Thread from '../../types/CommonTypes';
+import { Thread } from '../../types/CommonTypes';
 import ThreadCard from '../../components/ThreadCard/ThreadCard';
 import useAxios from '../../hooks/useAxios';
 

@@ -7,4 +7,14 @@ interface Thread {
   title?: string;
 }
 
-export default Thread;
+interface Comment {
+  author_id?: number;
+  author_username?: string;
+  content?: string;
+  deleted: boolean;
+  id: number;
+  thread_id: number;
+  children: Comment[];
+}
+
+export { Thread, Comment };
