@@ -9,6 +9,7 @@ import CommentList from './Comment/CommentList';
 import CreateCommentForm from './Comment/CreateCommentForm';
 import useAxios from '../../hooks/useAxios';
 import axios from '../../apis/reviveme';
+import VoteView from '../../components/VoteView/VoteView';
 
 const ThreadPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -50,6 +51,7 @@ const ThreadPage: React.FC = () => {
       {!loading && !error && thread && (
         <div className='container'>
           <h2>{thread.deleted ? '[deleted]' : thread.title}</h2>
+
           {isEditing ? (
             <EditThreadForm
               setIsEditing={setIsEditing}
@@ -60,6 +62,22 @@ const ThreadPage: React.FC = () => {
           ) : (
             <p>{thread.deleted ? '[deleted]' : tempContent}</p>
           )}
+
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'right',
+              paddingRight: '12%',
+            }}
+          >
+            <VoteView
+              thread_id={thread.id}
+              initiallyUpvoted={thread.upvoted}
+              initiallyDownvoted={thread.downvoted}
+              initialScore={thread.score}
+            />
+          </div>
 
           {!thread.deleted && (
             <div className='row'>
@@ -77,6 +95,8 @@ const ThreadPage: React.FC = () => {
             </div>
           )}
 
+          <hr style={{ paddingBottom: '2%' }} />
+          <p style={{ textAlign: 'left' }}>Comments:</p>
           <CreateCommentForm refetchComments={refetchComments} />
           {commentLoading && <p>Loading Comments...</p>}
           {!commentLoading && commentError && (
