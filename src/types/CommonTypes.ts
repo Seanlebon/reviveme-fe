@@ -3,8 +3,11 @@ interface Thread {
   author_name?: string;
   content?: string;
   deleted?: boolean;
-  id?: number;
+  id: number;
   title?: string;
+  score: number;
+  upvoted: boolean;
+  downvoted: boolean;
 }
 
 interface Comment {
@@ -14,6 +17,9 @@ interface Comment {
   deleted: boolean;
   id: number;
   thread_id: number;
+  score?: number;
+  upvoted?: boolean;
+  downvoted?: boolean;
   children: Comment[];
 }
 

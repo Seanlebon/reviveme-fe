@@ -13,7 +13,7 @@ import axios from '../../apis/reviveme';
 const ThreadPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [isEditing, setIsEditing] = useState(false);
-  const [tempThread, setTempThread] = useState<Thread>({ content: '' });
+  const [tempContent, setTempContent] = useState<string>('');
   const [thread, error, loading, axiosFetch] = useAxiosFunction();
 
   const [comments, commentError, commentLoading, refetchComments] = useAxios({
@@ -28,7 +28,11 @@ const ThreadPage: React.FC = () => {
         method: 'GET',
         url: `/api/v1/threads/${id}`,
       },
-      [setTempThread],
+      [
+        (threadResponse) => {
+          setTempContent(threadResponse.content);
+        },
+      ],
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -49,12 +53,12 @@ const ThreadPage: React.FC = () => {
           {isEditing ? (
             <EditThreadForm
               setIsEditing={setIsEditing}
-              setTempThread={setTempThread}
-              tempThread={tempThread}
+              setTempContent={setTempContent}
+              tempContent={tempContent}
               thread={thread}
             />
           ) : (
-            <p>{thread.deleted ? '[deleted]' : tempThread.content}</p>
+            <p>{thread.deleted ? '[deleted]' : tempContent}</p>
           )}
 
           {!thread.deleted && (
