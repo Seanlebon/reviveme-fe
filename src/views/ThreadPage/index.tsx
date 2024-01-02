@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Thread } from '../../types/CommonTypes';
 import DeleteThreadButton from '../../components/DeleteThreadButton/DeleteThreadButton';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import EditThreadForm from './EditThreadForm';
@@ -63,22 +62,6 @@ const ThreadPage: React.FC = () => {
             <p>{thread.deleted ? '[deleted]' : tempContent}</p>
           )}
 
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'right',
-              paddingRight: '12%',
-            }}
-          >
-            <VoteView
-              thread_id={thread.id}
-              initiallyUpvoted={thread.upvoted}
-              initiallyDownvoted={thread.downvoted}
-              initialScore={thread.score}
-            />
-          </div>
-
           {!thread.deleted && (
             <div className='row'>
               <div className='col'>
@@ -92,6 +75,16 @@ const ThreadPage: React.FC = () => {
                   Edit
                 </button>
               </div>
+              <div className='col'>
+                <VoteView
+                  item_id={thread.id}
+                  item_type={'thread'}
+                  initiallyUpvoted={thread.upvoted}
+                  initiallyDownvoted={thread.downvoted}
+                  initialScore={thread.score}
+                />
+              </div>
+              <div />
             </div>
           )}
 

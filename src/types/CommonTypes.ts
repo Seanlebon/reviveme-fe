@@ -17,9 +17,9 @@ interface Comment {
   deleted: boolean;
   id: number;
   thread_id: number;
-  score?: number;
-  upvoted?: boolean;
-  downvoted?: boolean;
+  score: number;
+  upvoted: boolean;
+  downvoted: boolean;
   children: Comment[];
 }
 

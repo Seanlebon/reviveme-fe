@@ -4,16 +4,24 @@ import { AxiosError, AxiosResponse } from 'axios';
 
 import './VoteView.css';
 import { CaretDownFill, CaretUpFill } from 'react-bootstrap-icons';
+import { LiteralType, StringLiteral } from 'typescript';
 
 interface VoteViewProps {
-  thread_id: number;
+  item_id: number;
+  item_type: 'thread' | 'comment';
   initiallyUpvoted: boolean;
   initiallyDownvoted: boolean;
   initialScore: number;
 }
 
+const item_type_to_endpoint = {
+  thread: '/api/v1/threads',
+  comment: '/api/v1/comments',
+};
+
 const VoteView: React.FC<VoteViewProps> = ({
-  thread_id,
+  item_id,
+  item_type,
   initiallyUpvoted,
   initiallyDownvoted,
   initialScore,
@@ -31,7 +39,7 @@ const VoteView: React.FC<VoteViewProps> = ({
 
   const onUpvoteClick = () => {
     axios
-      .post(`/api/v1/threads/${thread_id}/upvote`, {
+      .post(`${item_type_to_endpoint[item_type]}/${item_id}/upvote`, {
         user_id: 1,
         upvote: !upvoted,
       })
@@ -58,7 +66,7 @@ const VoteView: React.FC<VoteViewProps> = ({
 
   const onDownvoteClick = () => {
     axios
-      .post(`/api/v1/threads/${thread_id}/downvote`, {
+      .post(`${item_type_to_endpoint[item_type]}/${item_id}/downvote`, {
         user_id: 1,
         downvote: !downvoted,
       })

@@ -5,6 +5,7 @@ import './Comment.css';
 import { AxiosError } from 'axios';
 import CommentReplyForm from './CommentReplyForm';
 import EditCommentForm from './EditCommentForm';
+import VoteView from '../../../components/VoteView/VoteView';
 
 interface CommentProps {
   comment: CommentType;
@@ -79,6 +80,13 @@ const Comment: React.FC<CommentProps> = ({ comment, refetchComments }) => {
         >
           reply
         </button>
+        <VoteView
+          item_id={comment.id}
+          item_type='comment'
+          initiallyUpvoted={comment.upvoted}
+          initiallyDownvoted={comment.downvoted}
+          initialScore={comment.score}
+        />
       </div>
       <div>
         {comment.children.map((child: CommentType) => (

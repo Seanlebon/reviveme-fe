@@ -32,7 +32,8 @@ const ThreadCard: React.FC<ThreadCardProps> = ({ thread }) => {
           }}
         >
           <VoteView
-            thread_id={thread.id}
+            item_id={thread.id}
+            item_type={'thread'}
             initiallyUpvoted={thread.upvoted}
             initiallyDownvoted={thread.downvoted}
             initialScore={thread.score}
