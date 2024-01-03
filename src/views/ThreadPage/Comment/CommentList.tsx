@@ -14,7 +14,6 @@ const CommentList: React.FC<CommentListProps> = ({
 }) => {
   return (
     <div style={{ textAlign: 'left', marginLeft: 5, marginTop: 10 }}>
-      <p>Comments:</p>
       {comments.map((comment: CommentType) => (
         <Comment
           key={comment.id}

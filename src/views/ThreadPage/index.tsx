@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Thread } from '../../types/CommonTypes';
 import DeleteThreadButton from '../../components/DeleteThreadButton/DeleteThreadButton';
 import useAxiosFunction from '../../hooks/useAxiosFunction';
 import EditThreadForm from './EditThreadForm';
@@ -9,11 +8,12 @@ import CommentList from './Comment/CommentList';
 import CreateCommentForm from './Comment/CreateCommentForm';
 import useAxios from '../../hooks/useAxios';
 import axios from '../../apis/reviveme';
+import VoteView from '../../components/VoteView/VoteView';
 
 const ThreadPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [isEditing, setIsEditing] = useState(false);
-  const [tempThread, setTempThread] = useState<Thread>({ content: '' });
+  const [tempContent, setTempContent] = useState<string>('');
   const [thread, error, loading, axiosFetch] = useAxiosFunction();
 
   const [comments, commentError, commentLoading, refetchComments] = useAxios({
@@ -28,7 +28,11 @@ const ThreadPage: React.FC = () => {
         method: 'GET',
         url: `/api/v1/threads/${id}`,
       },
-      [setTempThread],
+      [
+        (threadResponse) => {
+          setTempContent(threadResponse.content);
+        },
+      ],
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -46,15 +50,16 @@ const ThreadPage: React.FC = () => {
       {!loading && !error && thread && (
         <div className='container'>
           <h2>{thread.deleted ? '[deleted]' : thread.title}</h2>
+
           {isEditing ? (
             <EditThreadForm
               setIsEditing={setIsEditing}
-              setTempThread={setTempThread}
-              tempThread={tempThread}
+              setTempContent={setTempContent}
+              tempContent={tempContent}
               thread={thread}
             />
           ) : (
-            <p>{thread.deleted ? '[deleted]' : tempThread.content}</p>
+            <p>{thread.deleted ? '[deleted]' : tempContent}</p>
           )}
 
           {!thread.deleted && (
@@ -70,9 +75,21 @@ const ThreadPage: React.FC = () => {
                   Edit
                 </button>
               </div>
+              <div className='col'>
+                <VoteView
+                  item_id={thread.id}
+                  item_type={'thread'}
+                  initiallyUpvoted={thread.upvoted}
+                  initiallyDownvoted={thread.downvoted}
+                  initialScore={thread.score}
+                />
+              </div>
+              <div />
             </div>
           )}
 
+          <hr style={{ paddingBottom: '2%' }} />
+          <p style={{ textAlign: 'left' }}>Comments:</p>
           <CreateCommentForm refetchComments={refetchComments} />
           {commentLoading && <p>Loading Comments...</p>}
           {!commentLoading && commentError && (

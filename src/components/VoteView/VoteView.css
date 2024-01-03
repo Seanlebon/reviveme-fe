@@ -1,0 +1,23 @@
+.vote-button {
+  margin-left: 1%;
+  margin-right: 1%;
+  border: transparent;
+  fill: none;
+  background-color: transparent;
+}
+
+.vote-view {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+.score-text {
+  font-size: 12px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  align-self: center;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}

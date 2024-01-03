@@ -6,22 +6,24 @@ import { Thread } from '../../types/CommonTypes';
 interface EditThreadFormProps {
   thread: Thread;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  setTempThread: React.Dispatch<React.SetStateAction<Thread>>;
-  tempThread: Thread;
+  setTempContent: React.Dispatch<React.SetStateAction<string>>;
+  tempContent: string;
 }
 
 const EditThreadForm: React.FC<EditThreadFormProps> = ({
   thread,
   setIsEditing,
-  setTempThread,
-  tempThread,
+  setTempContent,
+  tempContent,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [response, error, loading, axiosFetch] = useAxiosFunction();
 
   const handleEditChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-    setTempThread({ ...tempThread, [name]: value });
+    if (name === 'content') {
+      setTempContent(value);
+    }
   };
 
   const handleEditSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -31,11 +33,11 @@ const EditThreadForm: React.FC<EditThreadFormProps> = ({
       url: `/api/v1/threads/${thread.id}`,
       // TODO: change hardcoded values once we get user API running
       data: {
-        content: tempThread.content,
+        content: tempContent,
       },
     }).then(() => {
       setIsEditing(false);
-      setTempThread(tempThread);
+      setTempContent(tempContent);
     });
   };
 
@@ -46,7 +48,7 @@ const EditThreadForm: React.FC<EditThreadFormProps> = ({
         name='content'
         rows={5}
         placeholder='Text (required)'
-        value={tempThread.content}
+        value={tempContent}
         onChange={handleEditChange}
         className='form-control my-2 thread-content'
         maxLength={40000}
