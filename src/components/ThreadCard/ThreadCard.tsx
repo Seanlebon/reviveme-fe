@@ -16,12 +16,32 @@ const ThreadCard: React.FC<ThreadCardProps> = ({ thread }) => {
     navigate(`/threads/${id}`);
   };
 
+  const getCreatedAtDate = () =>
+    thread.created_at.substring(0, 'YYYY-MM-DD'.length);
+  const getCreatedAtTime = () => {
+    const startIndex = 'YYYY-MM-DDT'.length;
+    return thread.created_at.substring(startIndex, startIndex + 'HH:MM'.length);
+  };
+
   return (
     <div className='card-container'>
       <div className='card'>
-        <div className='card-body my-0' onClick={handleClick}>
-          <p className='threadcard-author my-0'> Posted by: {author_name}</p>
-          <h5 className='card-title'>{title}</h5>
+        <div
+          className='card-body my-0'
+          onClick={handleClick}
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div>
+            <p className='threadcard-author my-0'> Posted by: {author_name}</p>
+            <h5 className='card-title'>{title}</h5>
+          </div>
+          <p className='threadcard-author'>
+            {getCreatedAtDate() + ' ' + getCreatedAtTime()}
+          </p>
           {/* On click, this should bring us to the corresponding thread page with comments */}
         </div>
         <div
