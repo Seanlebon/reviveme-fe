@@ -1,13 +1,18 @@
 import { Thread, Comment } from '../types/CommonTypes';
 
+// Gets a user's local timezone
+const getTimeZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
+
 // Separate ISO timestamp into date and time
 const getCreatedAtDate = (item: Thread | Comment) =>
-  item.created_at.substring(0, 'YYYY-MM-DD'.length);
+  new Date(item.created_at).toLocaleDateString('EN-CA', {
+    timeZone: getTimeZone(),
+  });
 
-const getCreatedAtTime = (item: Thread | Comment) => {
-  const startIndex = 'YYYY-MM-DDT'.length;
-  return item.created_at.substring(startIndex, startIndex + 'HH:MM'.length);
-};
+const getCreatedAtTime = (item: Thread | Comment) =>
+  new Date(item.created_at).toLocaleTimeString('EN-CA', {
+    timeZone: getTimeZone(),
+  });
 
 const pluralize = (count: number, unit: string) =>
   Math.floor(count) == 1 ? unit : unit + 's';
