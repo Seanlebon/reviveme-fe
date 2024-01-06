@@ -9,6 +9,11 @@ import CreateCommentForm from './Comment/CreateCommentForm';
 import useAxios from '../../hooks/useAxios';
 import axios from '../../apis/reviveme';
 import VoteView from '../../components/VoteView/VoteView';
+import {
+  getCreatedAtDate,
+  getCreatedAtTime,
+  getTimeSinceCreated,
+} from '../../utils/DateTimeUtils';
 
 const ThreadPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -50,6 +55,11 @@ const ThreadPage: React.FC = () => {
       {!loading && !error && thread && (
         <div className='container'>
           <h2>{thread.deleted ? '[deleted]' : thread.title}</h2>
+          <p className='thread-date'>
+            Posted on{' '}
+            {getCreatedAtDate(thread) + ' ' + getCreatedAtTime(thread)}
+            {' (' + getTimeSinceCreated(thread) + ' ago)'}
+          </p>
 
           {isEditing ? (
             <EditThreadForm

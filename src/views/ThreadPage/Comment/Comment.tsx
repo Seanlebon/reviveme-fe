@@ -6,6 +6,10 @@ import { AxiosError } from 'axios';
 import CommentReplyForm from './CommentReplyForm';
 import EditCommentForm from './EditCommentForm';
 import VoteView from '../../../components/VoteView/VoteView';
+import {
+  getCreatedAtDate,
+  getCreatedAtTime,
+} from '../../../utils/DateTimeUtils';
 
 interface CommentProps {
   comment: CommentType;
@@ -35,9 +39,14 @@ const Comment: React.FC<CommentProps> = ({ comment, refetchComments }) => {
 
   return (
     <div className='comment-card'>
-      <p className='author-username'>
-        {comment.deleted ? '[deleted]' : comment.author_username}
-      </p>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <p className='author-username'>
+          {comment.deleted ? '[deleted]' : comment.author_username}
+        </p>
+        <p className='comment-date'>
+          {getCreatedAtDate(comment) + ' ' + getCreatedAtTime(comment)}
+        </p>
+      </div>
       {showEditForm ? (
         <EditCommentForm
           comment={comment}

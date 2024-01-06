@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './ThreadCard.css';
 import { Thread } from '../../types/CommonTypes';
 import VoteView from '../VoteView/VoteView';
+import { getCreatedAtDate, getCreatedAtTime } from '../../utils/DateTimeUtils';
 
 interface ThreadCardProps {
   thread: Thread;
@@ -19,9 +20,22 @@ const ThreadCard: React.FC<ThreadCardProps> = ({ thread }) => {
   return (
     <div className='card-container'>
       <div className='card'>
-        <div className='card-body my-0' onClick={handleClick}>
-          <p className='threadcard-author my-0'> Posted by: {author_name}</p>
-          <h5 className='card-title'>{title}</h5>
+        <div
+          className='card-body my-0'
+          onClick={handleClick}
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div>
+            <p className='threadcard-author my-0'> Posted by: {author_name}</p>
+            <h5 className='card-title'>{title}</h5>
+          </div>
+          <p className='threadcard-date'>
+            {getCreatedAtDate(thread) + ' ' + getCreatedAtTime(thread)}
+          </p>
           {/* On click, this should bring us to the corresponding thread page with comments */}
         </div>
         <div

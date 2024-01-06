@@ -8,6 +8,7 @@ interface Thread {
   score: number;
   upvoted: boolean;
   downvoted: boolean;
+  created_at: string;
 }
 
 interface Comment {
@@ -20,6 +21,7 @@ interface Comment {
   score: number;
   upvoted: boolean;
   downvoted: boolean;
+  created_at: string;
   children: Comment[];
 }
 
